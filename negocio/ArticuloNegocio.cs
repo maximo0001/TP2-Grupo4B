@@ -16,31 +16,32 @@ namespace negocio
 
             try
             {
-                datos.setConsulta("SELECT a.id, a.codigo, a.Nombre, a.Descripcion, a.Precio, m.descripcion AS Marca, c.descripcion AS Categoria, MIN(i.ImagenUrl) AS ImagenUrl FROM ARTICULOS a inner join MARCAS m ON m.id = a.IdMarca left join CATEGORIAS c ON c.Id = a.IdCategoria inner join IMAGENES i ON i.IdArticulo = a.id GROUP BY a.id, a.codigo, a.Nombre, a.Descripcion, a.Precio, m.descripcion, c.descripcion");
+                datos.setConsulta("select a.id, a.codigo, a.Nombre, a.Descripcion, a.Precio, m.descripcion Marca, c.descripcion Categoria from ARTICULOS a inner join MARCAS m on m.id = a.IdMarca inner join CATEGORIAS c on c.Id = a.IdCategoria");
                 datos.ejecutarLectura();
 
-                while(datos.Lector.Read())
+                while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-
                     aux.Id = (int)datos.Lector["id"];
                     aux.Codigo = (string)datos.Lector["codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Descripcion = (string)datos.Lector["a.Descripcion"];
-                    aux.Precio = (float)datos.Lector["Precio"];
-                    aux.UrlImagen = (string)datos.Lector["a.ImagenUrl"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    //aux.Precio = (float)datos.Lector["Precio"];
+                   
 
                     aux.Marca = new Marca();
                     aux.Categoria = new Categoria();
-                    
+
                     aux.Marca.Descripcion = (string)datos.Lector["Marca"];
                     aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
 
                     lista.Add(aux);
+
                 }
 
+
                 datos.cerrarConexion();
-                return listar();
+                return lista;
             }
             catch (Exception ex)
             {

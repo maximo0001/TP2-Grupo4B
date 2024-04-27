@@ -15,7 +15,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
 
             try
-            {
+            {              
                 datos.setConsulta("select a.id, a.codigo, a.Nombre, a.Descripcion, a.Precio, m.descripcion Marca, c.descripcion Categoria from ARTICULOS a inner join MARCAS m on m.id = a.IdMarca inner join CATEGORIAS c on c.Id = a.IdCategoria");
                 datos.ejecutarLectura();
 
@@ -26,7 +26,7 @@ namespace negocio
                     aux.Codigo = (string)datos.Lector["codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    //aux.Precio = (float)datos.Lector["Precio"];
+                    aux.Precio = (float)(decimal)datos.Lector["Precio"];
                    
 
                     aux.Marca = new Marca();
@@ -38,8 +38,6 @@ namespace negocio
                     lista.Add(aux);
 
                 }
-
-
                 datos.cerrarConexion();
                 return lista;
             }

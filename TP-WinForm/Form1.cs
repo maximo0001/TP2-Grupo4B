@@ -27,7 +27,7 @@ namespace TP_WinForm
         private void frmArticulo_Load(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
-            dgvArticulos.DataSource = negocio.listar();
+            dgvArticulos.DataSource = negocio.Listar();
         }
     }
 }

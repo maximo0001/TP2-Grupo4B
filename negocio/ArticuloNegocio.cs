@@ -9,7 +9,7 @@ namespace negocio
 {
     public class ArticuloNegocio
     {
-        public List<Articulo> listar()
+        public List<Articulo> Listar()
         {
             List<Articulo>lista = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
@@ -45,6 +45,33 @@ namespace negocio
             {
 
                 throw ex;
+            }
+        }
+        
+        public void Agregar(Articulo nuevo, Imagen nueva)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio ) values (@codigo, @nombre, @descripcion, @marca, @categoria, @precio) insert into IMAGENES (IdArticulo, ImagenUrl) select MAX(id), @imagen from ARTICULOS");
+                datos.setearParametro("@codigo", nuevo.Codigo);
+                datos.setearParametro("@nombre", nuevo.Nombre);
+                datos.setearParametro("@descripcion", nuevo.Descripcion);
+                datos.setearParametro("@marca", nuevo.Marca.Id);
+                datos.setearParametro("@categoria", nuevo.Categoria.Id);
+                datos.setearParametro("@precio", nuevo.Precio);
+                datos.setearParametro("@imagen", nueva.UrlImagen);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }

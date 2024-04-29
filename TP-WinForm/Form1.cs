@@ -84,5 +84,22 @@ namespace TP_WinForm
             
 
         }
+
+        private void btnImagenes_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmCategorias categorias = new frmCategorias();
+            categorias.ShowDialog();
+        }
+
+        private void btnMarca_Click(object sender, EventArgs e)
+        {
+            frmMarcas marcas = new frmMarcas();
+            marcas.ShowDialog();
+        }
     }
 }

@@ -23,10 +23,22 @@ namespace TP_WinForm
 
         private void frmImagenes_Load(object sender, EventArgs e)
         {
-            ImagenNegocio negocio = new ImagenNegocio();
-            dgvImagenes.DataSource = negocio.Listar(int.Parse(txtIdArticulo.Text));
+            cargar();
 
             
+        }
+        private void cargar()
+        {
+            try
+            {
+                ImagenNegocio negocio = new ImagenNegocio();
+                dgvImagenes.DataSource = negocio.Listar(int.Parse(txtIdArticulo.Text));
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void dgvImagenes_SelectionChanged(object sender, EventArgs e)
@@ -44,6 +56,26 @@ namespace TP_WinForm
             catch (Exception ex)
             {
                 pbxImagen.Load("https://static.wikia.nocookie.net/207f8103-c56c-4b65-8ee6-658436d05e6e/scale-to-width/755");
+            }
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            ImagenNegocio negocio = new ImagenNegocio();
+            Imagen imagen = new Imagen();
+
+            try
+            {
+                imagen.UrlImagen = txtAgregar.Text;
+                imagen.IdArticulo = int.Parse(txtIdArticulo.Text);
+                negocio.Agregar(imagen);
+                MessageBox.Show("Agregado con exito");
+                cargar();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
             }
         }
     }

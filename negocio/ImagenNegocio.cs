@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,8 @@ namespace negocio
                     Imagen aux = new Imagen();
                     aux.Id = (int)datos.Lector["id"];
                     aux.IdArticulo = (int)datos.Lector["idArticulo"];
-                    aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
+                    if (!(datos.Lector["ImagenUrl"] is DBNull))
+                        aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
                     lista.Add(aux);
                 }
                 return lista;

@@ -16,7 +16,7 @@ namespace negocio
 
             try
             {              
-                datos.setConsulta("select a.id, a.codigo, a.Nombre, a.Descripcion, a.Precio, m.descripcion Marca, c.descripcion Categoria from ARTICULOS a inner join MARCAS m on m.id = a.IdMarca inner join CATEGORIAS c on c.Id = a.IdCategoria");
+                datos.setConsulta("select a.id, a.codigo, a.Nombre, a.Descripcion, a.Precio, m.descripcion Marca, c.descripcion Categoria, c.Id idCat, m.Id idMarca from ARTICULOS a inner join MARCAS m on m.id = a.IdMarca inner join CATEGORIAS c on c.Id = a.IdCategoria");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -32,7 +32,9 @@ namespace negocio
                     aux.Marca = new Marca();
                     aux.Categoria = new Categoria();
 
+                    aux.Marca.Id = (int)datos.Lector["idMarca"];
                     aux.Marca.Descripcion = (string)datos.Lector["Marca"];
+                    aux.Categoria.Id = (int)datos.Lector["idCat"];
                     aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
 
                     lista.Add(aux);
@@ -96,6 +98,33 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void Modificar(Articulo art)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            
+            try
+            {
+
+                datos.setConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMar, IdCategoria = @IdCat, Precio = @Precio WHERE Id = @Id");
+                datos.setearParametro("@Codigo", art.Codigo);
+                datos.setearParametro("@Nombre", art.Nombre);
+                datos.setearParametro("@Descripcion", art.Descripcion);
+                datos.setearParametro("@IdMar", art.Marca.Id);
+                datos.setearParametro("@IdCat", art.Categoria.Id);
+                datos.setearParametro("@Precio", art.Precio);
+                datos.setearParametro("@Id", art.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { datos.cerrarConexion();}
+
         }
 
     }

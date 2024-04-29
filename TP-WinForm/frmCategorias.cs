@@ -48,7 +48,7 @@ namespace TP_WinForm
             {
                 categoria.Descripcion = txtAgregar.Text;
                 negocio.Agregar(categoria);
-                MessageBox.Show("Agregado con exito");
+                txtAgregar.Text = "";
                 cargar();
             }
             catch (Exception ex)

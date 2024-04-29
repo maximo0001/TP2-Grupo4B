@@ -73,7 +73,7 @@ namespace TP_WinForm
             {
                 marca.Descripcion = txtAgregar.Text;
                 negocio.Agregar(marca);
-                MessageBox.Show("Agregado con exito");
+                txtAgregar.Text = "";
                 cargar();
             }
             catch (Exception ex)

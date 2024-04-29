@@ -69,7 +69,7 @@ namespace TP_WinForm
                 imagen.UrlImagen = txtAgregar.Text;
                 imagen.IdArticulo = int.Parse(txtIdArticulo.Text);
                 negocio.Agregar(imagen);
-                MessageBox.Show("Agregado con exito");
+                txtAgregar.Text = "";
                 cargar();
             }
             catch (Exception ex)

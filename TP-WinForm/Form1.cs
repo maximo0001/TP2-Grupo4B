@@ -132,13 +132,53 @@ namespace TP_WinForm
 
             }
         }
+        private bool validarFiltro()
+        { 
+            if (cboCampo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione el campo para filtrar");
+                return true;
+            }
+            if (cboCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione el criterio para filtrar");
+                return true;
+            }
+            if (cboCampo.SelectedIndex.ToString() == "Id") ;
+            {
+                if(string.IsNullOrEmpty(txtFiltro.Text))
+                {
+                    MessageBox.Show("Debes cargar el filtro para numericos");
+                    return true;
+                }
+                if(!(soloNumeros(txtFiltro.Text)))
+                {
+                    MessageBox.Show("Ingresar solo numeros");
+                    return true;
+                }
+            }
 
+            return false; 
+        }
+
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char c in cadena)
+            {
+                if(!(char.IsNumber(c)))
+                    return false;
+            }
+            return true;
+        }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
 
             try
             {
+                if(validarFiltro()) 
+                    return;
+
                 string campo = cboCampo.SelectedItem.ToString();
                 string criterio = cboCriterio.SelectedItem.ToString();
                 string filtro = txtFiltro.Text;

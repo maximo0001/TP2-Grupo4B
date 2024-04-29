@@ -19,15 +19,27 @@ namespace TP_WinForm
             InitializeComponent();
         }
 
+        private void frmArticulo_Load(object sender, EventArgs e)
+        {
+            cargar();
+        }
+
+        private void cargar()
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            dgvArticulos.DataSource = negocio.Listar();
+        }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
         }
 
-        private void frmArticulo_Load(object sender, EventArgs e)
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
-            dgvArticulos.DataSource = negocio.Listar();
+            frmAltaArticulo alta = new frmAltaArticulo();
+            alta.ShowDialog();
+            cargar();
+            
         }
     }
 }

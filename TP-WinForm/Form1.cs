@@ -60,5 +60,29 @@ namespace TP_WinForm
             cargar();
 
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Una vez eliminado el articulo ya no podrás recuperarlo. \n¿Estás seguro que deseás eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    
+                if(respuesta == DialogResult.Yes) 
+                {    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.Eliminar(seleccionado.Id);
+                    cargar();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+            
+
+        }
     }
 }

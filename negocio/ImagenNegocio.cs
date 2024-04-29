@@ -9,10 +9,10 @@ namespace negocio
 {
     public class ImagenNegocio
     {
-        public List<Categoria> Listar(int id)
+        public List<Imagen> Listar(int id)
         {
             AccesoDatos datos = new AccesoDatos();
-            List<Categoria> lista = new List<Categoria>();
+            List<Imagen> lista = new List<Imagen>();
 
             try
             {
@@ -22,13 +22,55 @@ namespace negocio
 
                 while (datos.Lector.Read())
                 {
-                    Categoria aux = new Categoria();
+                    Imagen aux = new Imagen();
                     aux.Id = (int)datos.Lector["id"];
-                    aux.Id = (int)datos.Lector["idArticulo"];
-                    aux.Descripcion = (string)datos.Lector["ImagenUrl"];
+                    aux.IdArticulo = (int)datos.Lector["idArticulo"];
+                    aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
                     lista.Add(aux);
                 }
                 return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Agregar(Imagen nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) Values (@idArt, @imagen)");
+                datos.setearParametro("@idArt", nuevo.IdArticulo);
+                datos.setearParametro("@imagen", nuevo.UrlImagen);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM IMAGENES WHERE Id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {

@@ -22,6 +22,9 @@ namespace TP_WinForm
         private void frmArticulo_Load(object sender, EventArgs e)
         {
             cargar();
+            cboCampo.Items.Add("Id");
+            cboCampo.Items.Add("Codigo");
+            cboCampo.Items.Add("Nombre");
         }
 
         private void cargar()
@@ -108,6 +111,46 @@ namespace TP_WinForm
         {
             frmMarcas marcas = new frmMarcas();
             marcas.ShowDialog();
+        }
+
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cboCampo.SelectedItem.ToString();
+            if (opcion == "Id")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
+            }
+            else
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+
+            try
+            {
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltro.Text;
+                dgvArticulos.DataSource = negocio.Filtrar(campo, criterio, filtro);
+            }
+
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

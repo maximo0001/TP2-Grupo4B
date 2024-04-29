@@ -87,7 +87,15 @@ namespace TP_WinForm
 
         private void btnImagenes_Click(object sender, EventArgs e)
         {
-           
+            frmImagenes frm = new frmImagenes();
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            
+            frm.txtIdArticulo.Text = seleccionado.Id.ToString();
+            frm.txtNombre.Text = seleccionado.Nombre;
+
+            frm.Show();
+
         }
 
         private void button1_Click(object sender, EventArgs e)

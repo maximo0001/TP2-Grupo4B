@@ -67,6 +67,11 @@ namespace TP_WinForm
             try
             {
                 imagen.UrlImagen = txtAgregar.Text;
+                if (string.IsNullOrEmpty(txtAgregar.Text))
+                {
+                    MessageBox.Show("Debes cargar una url de imagen");
+                    return;
+                }
                 imagen.IdArticulo = int.Parse(txtIdArticulo.Text);
                 negocio.Agregar(imagen);
                 txtAgregar.Text = "";

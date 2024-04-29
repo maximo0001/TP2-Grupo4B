@@ -71,7 +71,13 @@ namespace TP_WinForm
 
             try
             {
+
                 marca.Descripcion = txtAgregar.Text;
+                if (string.IsNullOrEmpty(txtAgregar.Text))
+                {
+                    MessageBox.Show("Debes cargar una marca");
+                    return;
+                }
                 negocio.Agregar(marca);
                 txtAgregar.Text = "";
                 cargar();

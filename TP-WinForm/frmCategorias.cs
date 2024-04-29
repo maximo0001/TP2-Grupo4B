@@ -47,6 +47,11 @@ namespace TP_WinForm
             try
             {
                 categoria.Descripcion = txtAgregar.Text;
+                if (string.IsNullOrEmpty(txtAgregar.Text))
+                {
+                    MessageBox.Show("Debes cargar una categoria");
+                    return;
+                }
                 negocio.Agregar(categoria);
                 txtAgregar.Text = "";
                 cargar();

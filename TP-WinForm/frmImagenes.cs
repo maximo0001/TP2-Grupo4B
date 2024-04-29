@@ -78,5 +78,30 @@ namespace TP_WinForm
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            Imagen seleccionado = new Imagen();
+            ImagenNegocio negocio = new ImagenNegocio();
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Una vez eliminada la Imagen ya no podrás recuperarla. \n¿Estás seguro que deseás eliminarla?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    seleccionado = (Imagen)dgvImagenes.CurrentRow.DataBoundItem;
+                    negocio.Eliminar(seleccionado.Id);
+                    cargar();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
